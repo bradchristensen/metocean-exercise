@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './views/app';
 
 ReactDOM.render(
-    <div />,
+    <App />,
     document.getElementById('page')
 );

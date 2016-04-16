@@ -15,8 +15,8 @@ gulp.task('eslint', () => {
 var webpackCache = {};
 
 var webpackConfig = {
-    context: path.resolve(__dirname, './client'),
-    entry: ['./main'],
+    context: path.resolve(__dirname, './'),
+    entry: './client/main',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js'
@@ -25,11 +25,13 @@ var webpackConfig = {
         loaders: [
             {
                 loader: 'babel-loader',
-                include: [
-                    path.resolve(__dirname, './client')
-                ],
+                include: path.resolve(__dirname, './'),
+                exclude: path.resolve(__dirname, './node_modules'),
                 query: {
-                    plugins: ['lodash', ['transform-runtime', { polyfill: true }]],
+                    plugins: [
+                        'lodash',
+                        ['transform-runtime', { polyfill: true }]
+                    ],
                     presets: ['react', 'es2015']
                 }
             }
@@ -61,7 +63,7 @@ gulp.task('js-dev', callback => {
         }
         callback();
     });
-})
+});
 
 gulp.task('js-prod', callback => {
     webpack(webpackProductionConfig, (err, stats) => {
@@ -77,4 +79,4 @@ gulp.task('watch', ['eslint', 'js-dev'], () => {
     gulp.watch(['server/**/*.js'], ['eslint']);
 });
 
-gulp.task('default', ['eslint', 'js-dev', 'js-prod'])
+gulp.task('default', ['eslint', 'js-dev', 'js-prod']);
