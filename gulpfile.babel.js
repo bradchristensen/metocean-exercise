@@ -4,6 +4,10 @@ import eslint from 'gulp-eslint';
 import path from 'path';
 import webpack from 'webpack';
 import _ from 'lodash';
+import less from 'gulp-less';
+import concat from 'gulp-concat';
+import cssnano from 'gulp-cssnano';
+import rename from 'gulp-rename';
 
 gulp.task('eslint', () => {
     return gulp.src(['client/**/*.js', 'server/**/*.js'])
@@ -74,9 +78,23 @@ gulp.task('js-prod', callback => {
     });
 });
 
+gulp.task('less', () => {
+    gulp.src(['client/styles/**/*.less'])
+        .pipe(less())
+        .pipe(concat('app.css'))
+        .pipe(gulp.dest('dist/'));
+});
+gulp.task('minify-css', ['less'], () => {
+    gulp.src(['dist/app.css'])
+        .pipe(cssnano())
+        .pipe(rename('app.min.css'))
+        .pipe(gulp.dest('dist/'));
+});
+
 gulp.task('watch', ['eslint', 'js-dev'], () => {
     gulp.watch(['client/**/*.js'], ['eslint', 'js-dev']);
     gulp.watch(['server/**/*.js'], ['eslint']);
+    gulp.watch(['client/styles/**/*.less'], ['less']);
 });
 
-gulp.task('default', ['eslint', 'js-dev', 'js-prod']);
+gulp.task('default', ['eslint', 'js-dev', 'js-prod', 'less', 'minify-css']);

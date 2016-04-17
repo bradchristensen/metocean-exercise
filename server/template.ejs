@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css"
+            href="/static/app<%= config.env === 'production' ? '.min' : '' %>.css?v=<%= config.version %>" />
+        <meta charset="utf-8">
+        <title>MetOcean Data Fun</title>
+    </head>
+    <body>
+        <div id="page" class="page"></div>
+
+        <script>
+            window.metOceanDataFunConfig = <%- JSON.stringify(config) %>;
+        </script>
+
+        <script src="/static/main<%= config.env === 'production' ? '.min' : '' %>.js?v=<%= config.version %>"></script>
+    </body>
+</html>

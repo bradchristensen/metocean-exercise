@@ -8,3 +8,6 @@ node_modules
 
 # Generated files directory
 dist/
+
+# Environment-specific config file
+server/config.json
