@@ -37,13 +37,13 @@ app.use(function handleNotFound (req, res, next) {
     if (req.accepts('html')) {
         var clientConfig = _.clone(config);
         clientConfig.api = apiColumnHeadings;
+        clientConfig.env = (process.env.NODE_ENV || 'development');
 
         // TODO: Apart from returning an HTTP 404 status code, this 404 page is currently
         // just the same as the index page, since client-side routing hasn't been implemented
         res.render('template', {
             url: req.url,
             error: '404 Not found',
-            year: new Date().getFullYear(),
             config: clientConfig
         });
         return;
