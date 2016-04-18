@@ -6,6 +6,8 @@ import expressValidator from 'express-validator';
 import methodOverride from 'method-override';
 import path from 'path';
 import router from './router';
+import { apiColumnHeadings } from '../util/loadData';
+import _ from 'lodash';
 
 var app = express();
 
@@ -33,11 +35,16 @@ app.use(function handleNotFound (req, res, next) {
     res.status(404);
 
     if (req.accepts('html')) {
+        var clientConfig = _.clone(config);
+        clientConfig.api = apiColumnHeadings;
+
+        // TODO: Apart from returning an HTTP 404 status code, this 404 page is currently
+        // just the same as the index page, since client-side routing hasn't been implemented
         res.render('template', {
             url: req.url,
             error: '404 Not found',
             year: new Date().getFullYear(),
-            config
+            config: clientConfig
         });
         return;
     }

@@ -8,6 +8,7 @@ import less from 'gulp-less';
 import concat from 'gulp-concat';
 import cssnano from 'gulp-cssnano';
 import rename from 'gulp-rename';
+import addsrc from 'gulp-add-src';
 
 gulp.task('eslint', () => {
     return gulp.src(['client/**/*.js', 'server/**/*.js'])
@@ -81,6 +82,7 @@ gulp.task('js-prod', callback => {
 gulp.task('less', () => {
     gulp.src(['client/styles/**/*.less'])
         .pipe(less())
+        .pipe(addsrc.prepend(['node_modules/react-select/dist/react-select.css']))
         .pipe(concat('app.css'))
         .pipe(gulp.dest('dist/'));
 });
