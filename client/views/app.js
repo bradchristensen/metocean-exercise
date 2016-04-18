@@ -23,10 +23,13 @@ export default React.createClass({
 
     render () {
         // TODO: make property names like 'label' and 'description' less ambiguous
-        var apiOptions = _.map(api, apiItem => ({
-            value: apiItem.label,
-            label: apiItem.description
-        }));
+        var apiOptions = _.flow(
+            x => _.sortBy(x, apiItem => apiItem.description),
+            x => _.map(x, apiItem => ({
+                value: apiItem.label,
+                label: apiItem.description
+            }))
+        )(api);
 
         return (
             <div>
