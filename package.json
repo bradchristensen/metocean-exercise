@@ -34,7 +34,7 @@
     "react-addons-pure-render-mixin": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-select": "^1.0.0-beta12",
-    "react-svg-graph-bradchristensen": "^1.2.0"
+    "react-svg-graph-bradchristensen": "^1.2.1"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
